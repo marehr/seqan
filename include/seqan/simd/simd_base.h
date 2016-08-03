@@ -1,5 +1,5 @@
 // ==========================================================================
-//                             basic_allocator.h
+//                 SeqAn - The Library for Sequence Analysis
 // ==========================================================================
 // Copyright (c) 2006-2016, Knut Reinert, FU Berlin
 // All rights reserved.
@@ -29,36 +29,40 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Manuel Holtgrewe <manuel.holtgrewe@fu-berlin.de>
+// Author: Marcel Ehrhardt <marcel.ehrhardt@fu-berlin.de>
 // ==========================================================================
-// Facade header for basic/allocator submodule.
+// generic SIMD interface for SSE3 / AVX2
 // ==========================================================================
 
-#ifndef SEQAN_INCLUDE_SEQAN_BASIC_BASIC_ALLOCATOR_H_
-#define SEQAN_INCLUDE_SEQAN_BASIC_BASIC_ALLOCATOR_H_
+#ifndef SEQAN_INCLUDE_SEQAN_SIMD_SIMD_BASE_H_
+#define SEQAN_INCLUDE_SEQAN_SIMD_SIMD_BASE_H_
 
-// --------------------------------------------------------------------------
-// Dependencies
-// --------------------------------------------------------------------------
+// Define global macro to check if simd instructions are enabled.
+#define SEQAN_SIMD_ENABLED 1
 
-#include <seqan/platform.h>
-#include <seqan/basic/basic_fundamental.h>
-#include <seqan/basic/basic_smart_pointer.h>
+namespace seqan
+{
 
-// --------------------------------------------------------------------------
-// Sub Module Headers
-// --------------------------------------------------------------------------
+// a metafunction returning the biggest supported SIMD vector
+template <typename TValue, int LENGTH>
+struct SimdVector;
 
-// The allocator interface definitions.
-#include <seqan/basic/allocator_interface.h>
+// define a concept and its models
+// they allow us to define generic vector functions
+SEQAN_CONCEPT(SimdVectorConcept, (T)) {};
 
-// The allocator specializations.
-#include <seqan/basic/allocator_simple.h>
-#include <seqan/basic/allocator_singlepool.h>
-#include <seqan/basic/allocator_multipool.h>
-#include <seqan/basic/allocator_chunkpool.h>
+template <typename TSimdVector, typename TPosition>
+inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, typename Value<TSimdVector>::Type)
+getValue(TSimdVector &vector, TPosition pos);
 
-// Adaption from SeqAn allocator to STL allocator.
-#include <seqan/basic/allocator_to_std.h>
+template <typename TSimdVector, typename TPosition>
+inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, typename Value<TSimdVector>::Type)
+value(TSimdVector &vector, TPosition pos);
 
-#endif  // #ifndef SEQAN_INCLUDE_SEQAN_BASIC_BASIC_ALLOCATOR_H_
+template <typename TSimdVector, typename TPosition, typename TValue2>
+inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, void)
+assignValue(TSimdVector &vector, TPosition pos, TValue2 value);
+
+} // namespace seqan
+
+#endif // SEQAN_INCLUDE_SEQAN_SIMD_SIMD_BASE_H_

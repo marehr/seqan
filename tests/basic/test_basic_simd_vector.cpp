@@ -50,4 +50,3 @@ SEQAN_BEGIN_TESTSUITE(test_basic_simd_vector)
 #endif  // #ifdef __SSE4_1__
 }
 SEQAN_END_TESTSUITE
-

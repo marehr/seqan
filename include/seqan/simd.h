@@ -1,5 +1,5 @@
 // ==========================================================================
-//                             basic_allocator.h
+//                 SeqAn - The Library for Sequence Analysis
 // ==========================================================================
 // Copyright (c) 2006-2016, Knut Reinert, FU Berlin
 // All rights reserved.
@@ -29,36 +29,15 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Manuel Holtgrewe <manuel.holtgrewe@fu-berlin.de>
+// Author: Marcel Ehrhardt <marcel.ehrhardt@fu-berlin.de>
 // ==========================================================================
-// Facade header for basic/allocator submodule.
+// generic SIMD interface for SSE3 / AVX2
 // ==========================================================================
 
-#ifndef SEQAN_INCLUDE_SEQAN_BASIC_BASIC_ALLOCATOR_H_
-#define SEQAN_INCLUDE_SEQAN_BASIC_BASIC_ALLOCATOR_H_
+#ifndef SEQAN_INCLUDE_SEQAN_SIMD_H_
+#define SEQAN_INCLUDE_SEQAN_SIMD_H_
 
-// --------------------------------------------------------------------------
-// Dependencies
-// --------------------------------------------------------------------------
+#include "simd/simd_base.h"
+#include "simd/simd_base_seqan_impl.h"
 
-#include <seqan/platform.h>
-#include <seqan/basic/basic_fundamental.h>
-#include <seqan/basic/basic_smart_pointer.h>
-
-// --------------------------------------------------------------------------
-// Sub Module Headers
-// --------------------------------------------------------------------------
-
-// The allocator interface definitions.
-#include <seqan/basic/allocator_interface.h>
-
-// The allocator specializations.
-#include <seqan/basic/allocator_simple.h>
-#include <seqan/basic/allocator_singlepool.h>
-#include <seqan/basic/allocator_multipool.h>
-#include <seqan/basic/allocator_chunkpool.h>
-
-// Adaption from SeqAn allocator to STL allocator.
-#include <seqan/basic/allocator_to_std.h>
-
-#endif  // #ifndef SEQAN_INCLUDE_SEQAN_BASIC_BASIC_ALLOCATOR_H_
+#endif // SEQAN_INCLUDE_SEQAN_SIMD_H_

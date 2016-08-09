@@ -50,7 +50,7 @@
   /* GCC-compatible compiler, targeting x86/x86-64 */
   #include <x86intrin.h>
 #else
- #warning "No supported platform for SIMD vectorization!"
+  #warning "No supported platform for SIMD vectorization!"
 #endif
 
 namespace seqan {
@@ -63,7 +63,6 @@ namespace seqan {
 #define SEQAN_VECTOR_CAST_(T, v) reinterpret_cast<T>(v)
 #define SEQAN_VECTOR_CAST_LVALUE_(T, v) reinterpret_cast<T>(v)
 #endif
-
 
 // ============================================================================
 // Forwards
@@ -78,11 +77,6 @@ template <typename TPosition>                                                   
 inline typename Value<TSimdVector>::Type                                                                \
 getValue(TSimdVector &vector, TPosition pos)                                                            \
 {                                                                                                       \
-/*                                                                                                      \
-    typedef typename Value<TSimdVector>::Type TValue;                                                   \
-    TValue val = (SEQAN_VECTOR_CAST_(TValue*, &vector))[pos];                                           \
-    return val;                                                                                         \
-*/                                                                                                      \
     return vector[pos];                                                                                 \
 }
 
@@ -99,10 +93,6 @@ template <typename TPosition, typename TValue2>                                 
 inline void                                                                                             \
 assignValue(TSimdVector &vector, TPosition pos, TValue2 value)                                          \
 {                                                                                                       \
-/*                                                                                                      \
-    typedef typename Value<TSimdVector>::Type TValue;                                                   \
-    (SEQAN_VECTOR_CAST_(TValue*, &vector))[pos] = value;                                                \
-*/                                                                                                      \
     vector[pos] = value;                                                                                \
 }
 
@@ -132,15 +122,13 @@ struct SimdVector;
 // VEC_SIZE = Vector size := sizeof(vec)
 // LENGTH = number of elements := VEC_SIZE / sizeof(InnerValue<TVec>::Type)
 template <int VEC_SIZE, int LENGTH = 0>
-struct SimdParams_ {};
-
-template <int SCALE>
-struct ScaleParam_
+struct SimdParams_
 {};
 
 // internal struct to specialize for matrix parameters
 template <int ROWS, int COLS, int BITS_PER_VALUE>
-struct SimdMatrixParams_ {};
+struct SimdMatrixParams_
+{};
 
 #define SEQAN_DEFINE_SIMD_VECTOR_(TSimdVector, TValue, SIZEOF_VECTOR)                                           \
         typedef TValue TSimdVector __attribute__ ((__vector_size__(SIZEOF_VECTOR)));                            \

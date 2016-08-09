@@ -30,6 +30,7 @@
 //
 // ==========================================================================
 // Author: David Weese <david.weese@fu-berlin.de>
+//         Marcel Ehrhardt <marcel.ehrhardt@fu-berlin.de>
 // ==========================================================================
 // Tests for SIMD vectors.
 // ==========================================================================
@@ -43,10 +44,13 @@ SEQAN_BEGIN_TESTSUITE(test_basic_simd_vector)
     SEQAN_CALL_TEST(test_basic_simd_shuffle);
     SEQAN_CALL_TEST(test_basic_simd_transpose_8x8);
     SEQAN_CALL_TEST(test_basic_simd_transpose_16x16);
+#endif  // #ifdef __SSE4_1__
+
 #ifdef __AVX2__
     SEQAN_CALL_TEST(test_basic_simd_shuffle_avx);
     SEQAN_CALL_TEST(test_basic_simd_transpose_32x32);
 #endif  // #ifdef __AVX2__
-#endif  // #ifdef __SSE4_1__
+
+    return seqan::TestSystem::runAll();
 }
 SEQAN_END_TESTSUITE

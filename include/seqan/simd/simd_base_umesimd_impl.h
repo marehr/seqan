@@ -68,6 +68,39 @@ SEQAN_CONCEPT_IMPL((typename UME::SIMD::SIMDSwizzle<LENGTH>),       (SimdVectorC
 template <uint32_t LENGTH>
 SEQAN_CONCEPT_IMPL((typename UME::SIMD::SIMDSwizzle<LENGTH> const), (SimdVectorConcept));
 
+template <uint32_t LENGTH>
+struct Value<UME::SIMD::SIMDSwizzle<LENGTH> >
+{
+    typedef uint32_t Type;
+};
+
+template <uint32_t LENGTH_>
+struct LENGTH<UME::SIMD::SIMDSwizzle<LENGTH_> > {
+    enum { VALUE = LENGTH_ };
+};
+
+template <uint32_t LENGTH, typename TPosition>
+inline typename Value<UME::SIMD::SIMDSwizzle<LENGTH> >::Type
+getValue(UME::SIMD::SIMDSwizzle<LENGTH> const &vector, TPosition const pos)
+{
+    return vector[pos];
+}
+
+template <uint32_t LENGTH, typename TPosition>
+inline typename Value<UME::SIMD::SIMDSwizzle<LENGTH> >::Type
+value(UME::SIMD::SIMDSwizzle<LENGTH> const &vector, TPosition const pos)
+{
+
+    return vector[pos];
+}
+
+template <uint32_t LENGTH, typename TPosition, typename TValue2>
+inline void
+assignValue(UME::SIMD::SIMDSwizzle<LENGTH> &vector, TPosition const pos, TValue2 const value)
+{
+    vector.insert(pos, value);
+}
+
 // ============================================================================
 // SIMDVec_u
 // ============================================================================
@@ -88,6 +121,28 @@ template <typename TValue, uint32_t LENGTH_>
 struct LENGTH<UME::SIMD::SIMDVec_u<TValue, LENGTH_> > {
     enum { VALUE = LENGTH_ };
 };
+
+template <typename TValue, uint32_t LENGTH, typename TPosition>
+inline TValue
+getValue(UME::SIMD::SIMDVec_u<TValue, LENGTH> const &vector, TPosition const pos)
+{
+    return vector[pos];
+}
+
+template <typename TValue, uint32_t LENGTH, typename TPosition>
+inline TValue
+value(UME::SIMD::SIMDVec_u<TValue, LENGTH> const &vector, TPosition const pos)
+{
+
+    return vector[pos];
+}
+
+template <typename TValue, uint32_t LENGTH, typename TPosition, typename TValue2>
+inline void
+assignValue(UME::SIMD::SIMDVec_u<TValue, LENGTH> &vector, TPosition const pos, TValue2 const value)
+{
+    vector[pos] = value;
+}
 
 // ============================================================================
 // SIMDVec_i
@@ -110,6 +165,28 @@ struct LENGTH<UME::SIMD::SIMDVec_i<TValue, LENGTH_> > {
     enum { VALUE = LENGTH_ };
 };
 
+template <typename TValue, uint32_t LENGTH, typename TPosition>
+inline TValue
+getValue(UME::SIMD::SIMDVec_i<TValue, LENGTH> const &vector, TPosition const pos)
+{
+    return vector[pos];
+}
+
+template <typename TValue, uint32_t LENGTH, typename TPosition>
+inline TValue
+value(UME::SIMD::SIMDVec_i<TValue, LENGTH> const &vector, TPosition const pos)
+{
+
+    return vector[pos];
+}
+
+template <typename TValue, uint32_t LENGTH, typename TPosition, typename TValue2>
+inline void
+assignValue(UME::SIMD::SIMDVec_i<TValue, LENGTH> &vector, TPosition const pos, TValue2 const value)
+{
+    vector[pos] = value;
+}
+
 // ============================================================================
 // SIMDVec_f
 // ============================================================================
@@ -130,6 +207,28 @@ template <typename TValue, uint32_t LENGTH_>
 struct LENGTH<UME::SIMD::SIMDVec_f<TValue, LENGTH_> > {
     enum { VALUE = LENGTH_ };
 };
+
+template <typename TValue, uint32_t LENGTH, typename TPosition>
+inline TValue
+getValue(UME::SIMD::SIMDVec_f<TValue, LENGTH> const &vector, TPosition const pos)
+{
+    return vector[pos];
+}
+
+template <typename TValue, uint32_t LENGTH, typename TPosition>
+inline TValue
+value(UME::SIMD::SIMDVec_f<TValue, LENGTH> const &vector, TPosition const pos)
+{
+
+    return vector[pos];
+}
+
+template <typename TValue, uint32_t LENGTH, typename TPosition, typename TValue2>
+inline void
+assignValue(UME::SIMD::SIMDVec_f<TValue, LENGTH> &vector, TPosition const pos, TValue2 const value)
+{
+    vector[pos] = value;
+}
 
 } // namespace seqan
 

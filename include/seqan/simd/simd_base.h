@@ -100,7 +100,7 @@ struct SimdIndexVector : SimdIndexVectorImpl<TSimdVector, typename Is<SimdVector
  */
 template <typename TSimdVector, typename TPosition>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, typename Value<TSimdVector>::Type)
-getValue(TSimdVector &vector, TPosition pos);
+getValue(TSimdVector const &vector, TPosition const pos);
 
 /**
  * ```
@@ -113,7 +113,7 @@ getValue(TSimdVector &vector, TPosition pos);
  */
 template <typename TSimdVector, typename TPosition>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, typename Value<TSimdVector>::Type)
-value(TSimdVector &vector, TPosition pos);
+value(TSimdVector const &vector, TPosition const pos);
 
 /**
  * ```
@@ -126,7 +126,7 @@ value(TSimdVector &vector, TPosition pos);
  */
 template <typename TSimdVector, typename TPosition, typename TValue2>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, void)
-assignValue(TSimdVector &vector, TPosition pos, TValue2 value);
+assignValue(TSimdVector &vector, TPosition const pos, TValue2 const value);
 
 template <int ROWS, typename TSimdVector>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, void)

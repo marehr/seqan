@@ -509,14 +509,35 @@ load(T const * memAddr)
 // --------------------------------------------------------------------------
 
 template <typename TValue, typename TSimdVector>
-inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, TSimdVector)
-gather(TValue const * memAddr, TSimdVector const & idx)
+inline SEQAN_FUNC_ENABLE_IF(IsSameType<TValue, typename Value<TSimdVector>::Type>, TSimdVector)
+_gather(TValue const * memAddr, TSimdVector const & idx)
 {
     using TIndexVector = typename UME::SIMD::SIMDTraits<TSimdVector>::UINT_VEC_T;
 
     TSimdVector a;
     a.gather(memAddr, static_cast<TIndexVector>(idx));
     return a;
+}
+
+template <typename TValue, typename TSimdVector>
+inline SEQAN_FUNC_ENABLE_IF(Not<IsSameType<TValue, typename Value<TSimdVector>::Type> >, TSimdVector)
+_gather(TValue const * memAddr, TSimdVector const & idx)
+{
+    using TIndexVector = typename UME::SIMD::SIMDTraits<TSimdVector>::UINT_VEC_T;
+
+    TSimdVector a;
+    for (auto i = 0u; i < TIndexVector::length(); ++i)
+    {
+        a[i] = memAddr[idx[i]];
+    }
+    return a;
+}
+
+template <typename TValue, typename TSimdVector>
+inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, TSimdVector)
+gather(TValue const * memAddr, TSimdVector const & idx)
+{
+    return _gather(memAddr, idx);
 }
 
 // --------------------------------------------------------------------------

@@ -291,7 +291,11 @@ fillVector(TSimdVector &vector, TValue const... args)
 
 template <typename TSimdVector>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, TSimdVector)
-cmpEq (TSimdVector const &a, TSimdVector const &b);
+cmpEq (TSimdVector const &a, TSimdVector const &b)
+{
+    using TValue = typename UME::SIMD::SIMDTraits<TSimdVector>::SCALAR_T;
+    return UME::SIMD::SCALAR_EMULATION::xtoy<TSimdVector, TValue>(a.cmpeq(b));
+}
 
 // --------------------------------------------------------------------------
 // Function operator==()
@@ -311,7 +315,11 @@ operator == (TSimdVector const &a, TSimdVector const &b)
 
 template <typename TSimdVector>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, TSimdVector)
-cmpGt (TSimdVector const &a, TSimdVector const &b);
+cmpGt (TSimdVector const &a, TSimdVector const &b)
+{
+    using TValue = typename UME::SIMD::SIMDTraits<TSimdVector>::SCALAR_T;
+    return UME::SIMD::SCALAR_EMULATION::xtoy<TSimdVector, TValue>(a.cmpgt(b));
+}
 
 // --------------------------------------------------------------------------
 // Function operator>()

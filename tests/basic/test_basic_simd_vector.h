@@ -108,7 +108,7 @@ void reverseIndexSequence(TSimdIndexVector & idx, TSize length)
 } // namespace seqan
 
 // ----------------------------------------------------------------------------
-// Configuration of typed tests for global alignment.
+// Configuration of typed tests for simd vectors.
 // ----------------------------------------------------------------------------
 
 template <typename TSimdVector_>

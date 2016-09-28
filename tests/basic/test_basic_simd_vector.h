@@ -827,23 +827,23 @@ SEQAN_TYPED_TEST(SimdVectorTestGather, ULongArray)
 
 #ifdef __SSE4_1__
 
-// SEQAN_DEFINE_TEST(test_basic_simd_transpose_8x8)
-// {
-//     seqan::test_matrix_transpose<8, seqan::SimdVector<unsigned char, 8>::Type>();
-// }
-//
-// SEQAN_DEFINE_TEST(test_basic_simd_transpose_16x16)
-// {
-//     seqan::test_matrix_transpose<16, seqan::SimdVector<unsigned char, 16>::Type>();
-// }
+SEQAN_DEFINE_TEST(test_basic_simd_transpose_8x8)
+{
+    seqan::test_matrix_transpose<8, seqan::SimdVector<unsigned char, 8>::Type>();
+}
+
+SEQAN_DEFINE_TEST(test_basic_simd_transpose_16x16)
+{
+    seqan::test_matrix_transpose<16, seqan::SimdVector<unsigned char, 16>::Type>();
+}
 
 #endif  // #ifdef __SSE4_1__
 #ifdef __AVX2__
 
-// SEQAN_DEFINE_TEST(test_basic_simd_transpose_32x32)
-// {
-//     seqan::test_matrix_transpose<32, seqan::SimdVector<unsigned char, 32>::Type >();
-// }
+SEQAN_DEFINE_TEST(test_basic_simd_transpose_32x32)
+{
+    seqan::test_matrix_transpose<32, seqan::SimdVector<unsigned char, 32>::Type >();
+}
 
 #endif  // #ifdef __AVX2__
 #endif  // SEQAN_SIMD_ENABLED

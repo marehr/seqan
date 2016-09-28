@@ -105,6 +105,18 @@ void reverseIndexSequence(TSimdVector & idx, TSize length)
     }
 }
 
+template <typename TSimdVector>
+constexpr auto trueValue()
+{
+    #if defined(SEQAN_UMESIMD_ENABLED)
+    using TValue = typename Value<TSimdVector>::Type;
+    return static_cast<TValue>(1);
+    #else
+    using TValue = typename MakeSigned<typename Value<TSimdVector>::Type>::Type;
+    return static_cast<TValue>(-1);
+    #endif
+}
+
 } // namespace seqan
 
 // ----------------------------------------------------------------------------
@@ -295,9 +307,11 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, CmpEqual)
     using namespace seqan;
     using TSimdVector = typename TestFixture::TSimdVector;
     using TValue = typename TestFixture::TValue;
+    using TBoolValue = decltype(trueValue<TSimdVector>());
     constexpr auto length = TestFixture::LENGTH;
 
-    TValue zeros = 0, ones = 1;
+    TBoolValue false_ = 0,
+               true_ = trueValue<TSimdVector>();
 
     TSimdVector a, b;
     fillVectors(a, b);
@@ -307,8 +321,8 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, CmpEqual)
     for (auto i = 0; i < length; ++i)
     {
         // std::cout << i << " / " << length << ": " << (int)c[i] << " = " << (int)a[i] << " == " << (int)b[i] << std::endl;
-        SEQAN_ASSERT_EQ(c[i], a[i] == b[i] ? ones : zeros);
-        SEQAN_ASSERT_EQ(c[i], (i * 3) == (length - i) ? ones : zeros);
+        SEQAN_ASSERT_EQ(c[i], a[i] == b[i] ? true_ : false_);
+        SEQAN_ASSERT_EQ(c[i], (i * 3) == (length - i) ? true_ : false_);
     }
 }
 
@@ -317,9 +331,11 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, CmpGt)
     using namespace seqan;
     using TSimdVector = typename TestFixture::TSimdVector;
     using TValue = typename TestFixture::TValue;
+    using TBoolValue = decltype(trueValue<TSimdVector>());
     constexpr auto length = TestFixture::LENGTH;
 
-    TValue zeros = 0, ones = 1;
+    TBoolValue false_ = 0,
+               true_ = trueValue<TSimdVector>();
 
     TSimdVector a, b;
     fillVectors(a, b);
@@ -329,8 +345,8 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, CmpGt)
     for (auto i = 0; i < length; ++i)
     {
         // std::cout << i << " / " << length << ": " << (int)c[i] << " = " << (int)a[i] << " > " << (int)b[i] << std::endl;
-        SEQAN_ASSERT_EQ(c[i], a[i] > b[i] ? ones : zeros);
-        SEQAN_ASSERT_EQ(c[i], (i * 3) > (length - i) ? ones : zeros);
+        SEQAN_ASSERT_EQ(c[i], a[i] > b[i] ? true_ : false_);
+        SEQAN_ASSERT_EQ(c[i], (i * 3) > (length - i) ? true_ : false_);
     }
 }
 

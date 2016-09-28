@@ -840,38 +840,6 @@ SEQAN_TYPED_TEST(SimdVectorTestGather, ULongArray)
 #endif  // #ifdef __SSE4_1__
 #ifdef __AVX2__
 
-// SEQAN_DEFINE_TEST(test_basic_simd_shuffle_avx)
-// {
-//     seqan::SimdVector<unsigned short, 16>::Type vec;
-//     #ifdef SEQAN_SEQANSIMD_ENABLED
-//     seqan::SimdVector<unsigned char, 16>::Type  indices;
-//     #else
-//     typename seqan::SimdShuffleVector<decltype(vec)>::Type indices;
-//     #endif
-//
-//     const int perm[] = {1,4,2,6,3,5,0,7};
-//
-//     for (int i = 0; i < 8; ++i)
-//     {
-//         vec[i]   = i * 259 + 3;
-//         vec[i+8] = i * 432 + 9;
-//     }
-//
-//     for (int i = 0; i < 8; ++i)
-//     {
-//         seqan::insert(indices, i, 7 - i);
-//         seqan::insert(indices, i+8, perm[i]);
-//     }
-//
-//     vec = seqan::shuffleVector(vec, indices);
-//
-//     for (int i = 0; i < 8; ++i)
-//     {
-//         SEQAN_ASSERT_EQ(vec[i],   (7 - i) * 259 + 3);
-//         SEQAN_ASSERT_EQ(vec[i+8], perm[i] * 432 + 9);
-//     }
-// }
-//
 // SEQAN_DEFINE_TEST(test_basic_simd_transpose_32x32)
 // {
 //     seqan::test_matrix_transpose<32, seqan::SimdVector<unsigned char, 32>::Type >();

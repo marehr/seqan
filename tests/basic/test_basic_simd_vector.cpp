@@ -41,14 +41,14 @@
 SEQAN_BEGIN_TESTSUITE(test_basic_simd_vector)
 {
 #ifdef __SSE4_1__
-    // SEQAN_CALL_TEST(test_basic_simd_shuffle);
-    SEQAN_CALL_TEST(test_basic_simd_transpose_8x8);
-    SEQAN_CALL_TEST(test_basic_simd_transpose_16x16);
+    // // SEQAN_CALL_TEST(test_basic_simd_shuffle);
+    // SEQAN_CALL_TEST(test_basic_simd_transpose_8x8);
+    // SEQAN_CALL_TEST(test_basic_simd_transpose_16x16);
 #endif  // #ifdef __SSE4_1__
 
 #ifdef __AVX2__
-    SEQAN_CALL_TEST(test_basic_simd_shuffle_avx);
-    SEQAN_CALL_TEST(test_basic_simd_transpose_32x32);
+    // SEQAN_CALL_TEST(test_basic_simd_shuffle_avx);
+    // SEQAN_CALL_TEST(test_basic_simd_transpose_32x32);
 #endif  // #ifdef __AVX2__
 
     return seqan::TestSystem::runAll();

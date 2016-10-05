@@ -575,7 +575,7 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, Load)
     TSimdVector a, c;
     fillVectors(a, c);
 
-    TValue b[length];
+    alignas(sizeof(TSimdVector)) TValue b[length];
     storeu(b, a);
     c = load<TSimdVector>(b);
 

@@ -40,8 +40,8 @@
 // Define global macro to check if simd instructions are enabled.
 #define SEQAN_SIMD_ENABLED 1
 
-// #define SEQAN_SEQANSIMD_ENABLED 1
-#define SEQAN_UMESIMD_ENABLED 1
+#define SEQAN_SEQANSIMD_ENABLED 1
+//#define SEQAN_UMESIMD_ENABLED 1
 
 #include "simd/simd_base.h"
 #include "simd/simd_base_seqan_impl.h"

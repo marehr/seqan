@@ -83,13 +83,13 @@ SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2Double,    double,         16)
 // --------------------------------------------------------------------------
 
 template <typename TSimdVector, typename... TValue>
-inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 16>) { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi8(std::get<0>(x)); }
+inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 16>) { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi8(std::get<0>(x))); }
 template <typename TSimdVector, typename... TValue>
-inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 8>)  { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi16(std::get<0>(x)); }
+inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 8>)  { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi16(std::get<0>(x))); }
 template <typename TSimdVector, typename... TValue>
-inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 4>)  { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi32(std::get<0>(x)); }
+inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 4>)  { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi32(std::get<0>(x))); }
 template <typename TSimdVector, typename... TValue>
-inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 2>)  { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi64x(std::get<0>(x)); }
+inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & x, std::index_sequence<0> const &, SimdParams_<16, 2>)  { vector = SEQAN_VECTOR_CAST_(TSimdVector, _mm_set1_epi64x(std::get<0>(x))); }
 
 template <typename TSimdVector, typename ...TValue, size_t ...INDICES>
 inline void _fillVector(TSimdVector &vector, std::tuple<TValue...> const & args, std::index_sequence<INDICES...> const &, SimdParams_<16, 16>)

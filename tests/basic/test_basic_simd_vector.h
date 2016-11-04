@@ -112,7 +112,7 @@ constexpr auto trueValue()
     using TValue = typename Value<TSimdVector>::Type;
     return static_cast<TValue>(1);
     #else
-    using TValue = typename MakeSigned<typename Value<TSimdVector>::Type>::Type;
+    using TValue = typename Value<TSimdVector>::Type;
     return static_cast<TValue>(-1);
     #endif
 }

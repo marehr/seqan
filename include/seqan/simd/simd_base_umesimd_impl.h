@@ -336,7 +336,9 @@ inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, TSimdVector)
 cmpEq (TSimdVector const &a, TSimdVector const &b)
 {
     using TValue = typename UME::SIMD::SIMDTraits<TSimdVector>::SCALAR_T;
-    return UME::SIMD::SCALAR_EMULATION::xtoy<TSimdVector, TValue>(a.cmpeq(b));
+    TSimdVector retval(0);
+    retval.assign(a.cmeq(b), ~TValue(0);
+    return retval;
 }
 
 // --------------------------------------------------------------------------
@@ -517,6 +519,8 @@ inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, TSimdVector)
 blend(TSimdVector const &a, TSimdVector const &b, TSimdVectorMask const & mask)
 {
     using TMaskType = typename UME::SIMD::SIMDTraits<TSimdVector>::MASK_T;
+
+    // same as in cmpEq, but reverse
 
     return a.blend(
         UME::SIMD::SCALAR_EMULATION::xtoy<TMaskType, bool>(mask),

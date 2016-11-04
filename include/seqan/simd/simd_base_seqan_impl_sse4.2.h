@@ -53,7 +53,6 @@ SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4UShort,    unsigned short, 8)
 // SimdParams_<8, 2>: 64bit = 2 elements * 4 * 8bit
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2Int,       int,            8)
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2UInt,      unsigned int,   8)
-SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2Float,     float,          8)
 
 // SimdParams_<16, 16>: 128bit = 16 elements * 8bit
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector16Char,     char,           16)
@@ -67,12 +66,10 @@ SEQAN_DEFINE_SIMD_VECTOR_(SimdVector8UShort,    unsigned short, 16)
 // SimdParams_<16, 4>: 128bit = 4 elements * 4 * 8bit
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4Int,       int,            16)
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4UInt,      unsigned int,   16)
-SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4Float,     float,          16)
 
 // SimdParams_<16, 2>: 128bit = 2 elements * 8 * 8bit
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2Int64,     int64_t,        16)
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2UInt64,    uint64_t,       16)
-SEQAN_DEFINE_SIMD_VECTOR_(SimdVector2Double,    double,         16)
 
 // ============================================================================
 // Functions

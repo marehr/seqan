@@ -53,12 +53,10 @@ SEQAN_DEFINE_SIMD_VECTOR_(SimdVector16UShort,   unsigned short, 32)
 // SimdParams_<32, 8>: 256bit = 8 elements * 4 * 8bit
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector8Int,       int,            32)
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector8UInt,      unsigned int,   32)
-SEQAN_DEFINE_SIMD_VECTOR_(SimdVector8Float,     float,          32)
 
 // SimdParams_<32, 4>: 256bit = 4 elements * 8 * 8bit
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4Int64,     int64_t,        32)
 SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4UInt64,    uint64_t,       32)
-SEQAN_DEFINE_SIMD_VECTOR_(SimdVector4Double,    double,         32)
 
 // ============================================================================
 // Functions

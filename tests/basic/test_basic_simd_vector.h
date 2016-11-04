@@ -108,13 +108,8 @@ void reverseIndexSequence(TSimdVector & idx, TSize length)
 template <typename TSimdVector>
 constexpr auto trueValue()
 {
-    #if defined(SEQAN_UMESIMD_ENABLED)
-    using TValue = typename Value<TSimdVector>::Type;
-    return static_cast<TValue>(1);
-    #else
     using TValue = typename Value<TSimdVector>::Type;
     return static_cast<TValue>(-1);
-    #endif
 }
 
 } // namespace seqan

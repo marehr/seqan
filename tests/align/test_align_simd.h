@@ -325,7 +325,7 @@ class SimdAlignTestCommon : public SimdAlignTest<T>
 {};
 
 typedef
-        seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
+        /*seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
         seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
         seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
         seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
@@ -337,7 +337,9 @@ typedef
         seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
         seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
         seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>
-        > > > > > > > > > > > > SimdAlignTestCommonCommonTypes;
+        > > > > > > > > > > > > */
+        seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>>
+        SimdAlignTestCommonCommonTypes;
 
 SEQAN_TYPED_TEST_CASE(SimdAlignTestCommon, SimdAlignTestCommonCommonTypes);
 
@@ -345,10 +347,12 @@ SEQAN_TYPED_TEST_CASE(SimdAlignTestCommon, SimdAlignTestCommonCommonTypes);
 // Configuration of typed tests for local alignment.
 // ----------------------------------------------------------------------------
 
+
 template <typename T>
 class SimdAlignLocalTestCommon : public SimdAlignTest<T>
 {};
 
+/*
 typedef
         seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::EqualLengthSimd,    seqan::BandOff>,
         seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::VariableLengthSimd, seqan::BandOff>,
@@ -356,6 +360,7 @@ typedef
         > > > SimdAlignLocalTestCommonCommonTypes;
 
 SEQAN_TYPED_TEST_CASE(SimdAlignLocalTestCommon, SimdAlignLocalTestCommonCommonTypes);
+*/
 
 // ----------------------------------------------------------------------------
 // Function testAlignSimd()
@@ -480,7 +485,7 @@ void testAlignSimdScore(TFunctor const &,
 // Global Alignments.
 // ----------------------------------------------------------------------------
 
-SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Align)
+/*SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Align)
 {
     using TAlignConf = typename TestFixture::TAlignConfig;
     using TLengthParam = typename TestFixture::TLengthParam;
@@ -490,7 +495,7 @@ SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Align)
                               TAlignConf(), TLengthParam(), TBandSwitch());
     testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignTester_(), seqan::Blosum62(-2),
                                     TAlignConf(), TLengthParam(), TBandSwitch());
-}
+}*/
 
 SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Score)
 {
@@ -503,7 +508,7 @@ SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Score)
     testAlignSimdScore<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Blosum62(-2),
                                          TAlignConf(), TLengthParam(), TBandSwitch());
 }
-
+/*
 SEQAN_TYPED_TEST(SimdAlignTestCommon, Affine_Align)
 {
     using TAlignConf = typename TestFixture::TAlignConfig;
@@ -527,11 +532,12 @@ SEQAN_TYPED_TEST(SimdAlignTestCommon, Affine_Score)
     testAlignSimdScore<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Blosum62(-2, -4),
                                          TAlignConf(), TLengthParam(), TBandSwitch());
 }
-
+*/
 // ----------------------------------------------------------------------------
 // Local Alignments.
 // ----------------------------------------------------------------------------
 
+/*
 SEQAN_TYPED_TEST(SimdAlignLocalTestCommon, Linear_Align)
 {
     using TAlignConf = typename TestFixture::TAlignConfig;
@@ -555,5 +561,6 @@ SEQAN_TYPED_TEST(SimdAlignLocalTestCommon, Affine_Align)
     testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::LocalAlignTester_(), seqan::Blosum62(-2, -4),
                                     TAlignConf(), TLengthParam(), TBandSwitch());
 }
+*/
 
 #endif  // #ifndef TESTS_ALIGN_TEST_ALIGN_SIMD_H_

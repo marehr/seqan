@@ -291,7 +291,7 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, ClearVector)
 
     for (auto i = 0; i < length; ++i)
     {
-        // std::cout << i << " / " << length << ": " << (int)a[i] << " = " << 0 << std::endl;
+        std::cout << i << " / " << length << ": " << (int)a[i] << " = " << 0 << std::endl;
         SEQAN_ASSERT_EQ(a[i], zero);
     }
 }

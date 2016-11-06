@@ -297,7 +297,7 @@ _alignWrapperSimd(StringSet<TString1, TSpec1> const & stringsH,
                   TAlignConfig const & config,
                   TGapModel const & /*gaps*/)
 {
-    typedef typename SimdVector<int16_t>::Type TSimdAlign;
+    typedef typename SimdVector<int32_t>::Type TSimdAlign;
 
     unsigned const numAlignments = length(stringsV);
     unsigned const sizeBatch = LENGTH<TSimdAlign>::VALUE;
@@ -367,7 +367,7 @@ _alignWrapperSimd(TString1 const & stringH,
                   TAlignConfig const & config,
                   TGapModel const & /*gaps*/)
 {
-    typedef typename SimdVector<int16_t>::Type TSimdAlign;
+    typedef typename SimdVector<int32_t>::Type TSimdAlign;
 
     unsigned const numAlignments = length(stringsV);
     unsigned const sizeBatch = LENGTH<TSimdAlign>::VALUE;
@@ -437,7 +437,7 @@ _alignWrapperSimd(StringSet<Gaps<TSequenceH, TGapsSpecH>, TSetSpecH> & gapSeqSet
     typedef typename Position<TGapSequenceH>::Type                      TPosition;
     typedef TraceSegment_<TPosition, TSize>                             TTraceSegment;
 
-    typedef typename SimdVector<int16_t>::Type                          TSimdAlign;
+    typedef typename SimdVector<int32_t>::Type                          TSimdAlign;
 
 #if SEQAN_ALIGN_SIMD_PROFILE
     timer = sysTime();

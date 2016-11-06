@@ -155,8 +155,8 @@ public:
     //so we need two vectors of type 32bit to save the host for all alignments
 
     // TODO(rrahn): Abstract into a struct, so we can model different configurations.
-    SimdVector<int32_t>::Type _maxHostLow; //first half of alignments
-    SimdVector<int32_t>::Type _maxHostHigh; //other half
+    SimdVector<int64_t>::Type _maxHostLow; //first half of alignments
+    SimdVector<int64_t>::Type _maxHostHigh; //other half
     TScoutState * state = nullptr;
     unsigned _simdLane  = 0;
 
@@ -230,7 +230,7 @@ template<typename TDPCell, typename TScoutSpec, typename TSimdVec>
 inline void
 _updateHostPositions(DPScout_<TDPCell, TScoutSpec> & dpScout,
                      TSimdVec & cmp,
-                     SimdVector<int32_t>::Type positionNavigator)
+                     SimdVector<int64_t>::Type positionNavigator)
 {
 // TODO(rrahn): Refactor!
 #if SEQAN_UMESIMD_ENABLED
@@ -239,19 +239,19 @@ _updateHostPositions(DPScout_<TDPCell, TScoutSpec> & dpScout,
     cmp.unpack(cmpLow, cmpHigh);
 
     dpScout._maxHostLow = blend(dpScout._maxHostLow, positionNavigator,
-                                static_cast<SimdVector<int32_t>::Type>(cmpLow));
+                                static_cast<SimdVector<int64_t>::Type>(cmpLow));
     dpScout._maxHostHigh = blend(dpScout._maxHostHigh, positionNavigator,
-                                static_cast<SimdVector<int32_t>::Type>(cmpHigh));
+                                static_cast<SimdVector<int64_t>::Type>(cmpHigh));
 #elif defined(__AVX2__)
     dpScout._maxHostLow = blend(dpScout._maxHostLow, positionNavigator,
-                                _mm256_cvtepi16_epi32(_mm256_castsi256_si128(reinterpret_cast<__m256i&>(cmp))));
+                                _mm256_cvtepi32_epi64(_mm256_castsi256_si128(reinterpret_cast<__m256i&>(cmp))));
     dpScout._maxHostHigh = blend(dpScout._maxHostHigh, positionNavigator,
-                                 _mm256_cvtepi16_epi32(_mm256_extractf128_si256(reinterpret_cast<__m256i&>(cmp),1)));
+                                 _mm256_cvtepi32_epi64(_mm256_extractf128_si256(reinterpret_cast<__m256i&>(cmp),1)));
 #elif defined(__SSE3__)
     dpScout._maxHostLow = blend(dpScout._maxHostLow, positionNavigator,
-                                _mm_unpacklo_epi16(reinterpret_cast<__m128i&>(cmp), reinterpret_cast<__m128i&>(cmp)));
+                                _mm_unpacklo_epi32(reinterpret_cast<__m128i&>(cmp), reinterpret_cast<__m128i&>(cmp)));
     dpScout._maxHostHigh = blend(dpScout._maxHostHigh, positionNavigator,
-                                 _mm_unpackhi_epi16(reinterpret_cast<__m128i&>(cmp), reinterpret_cast<__m128i&>(cmp)));
+                                 _mm_unpackhi_epi32(reinterpret_cast<__m128i&>(cmp), reinterpret_cast<__m128i&>(cmp)));
 #endif
 }
 
@@ -269,7 +269,7 @@ _scoutBestScore(DPScout_<TDPCell, SimdAlignmentScout<SimdAlignEqualLength> > & d
 {
     auto cmp = cmpGt(_scoreOfCell(activeCell), _scoreOfCell(dpScout._maxScore));
     _copySimdCell(dpScout, activeCell, cmp);
-    _updateHostPositions(dpScout, cmp, createVector<SimdVector<int32_t>::Type>(position(navigator)));
+    _updateHostPositions(dpScout, cmp, createVector<SimdVector<int64_t>::Type>(position(navigator)));
 }
 
 template <typename TDPCell, typename TTraits,
@@ -286,7 +286,7 @@ _scoutBestScore(DPScout_<TDPCell, SimdAlignmentScout<SimdAlignVariableLength<TTr
     auto cmp = cmpGt(_scoreOfCell(activeCell), _scoreOfCell(dpScout._maxScore));
     cmp &= dpScout.state->masks[dpScout.state->posV];
     _copySimdCell(dpScout, activeCell, cmp);
-    _updateHostPositions(dpScout, cmp, createVector<SimdVector<int32_t>::Type>(position(navigator)));
+    _updateHostPositions(dpScout, cmp, createVector<SimdVector<int64_t>::Type>(position(navigator)));
 }
 
 // ----------------------------------------------------------------------------
@@ -297,10 +297,10 @@ template <typename TDPCell, typename TScoutSpec>
 inline unsigned int
 maxHostPosition(DPScout_<TDPCell, SimdAlignmentScout<TScoutSpec> > const & dpScout)
 {
-    if(dpScout._simdLane < LENGTH<SimdVector<int32_t>::Type>::VALUE)
+    if(dpScout._simdLane < LENGTH<SimdVector<int64_t>::Type>::VALUE)
         return value(dpScout._maxHostLow, dpScout._simdLane);
     else
-        return value(dpScout._maxHostHigh, dpScout._simdLane - LENGTH<SimdVector<int32_t>::Type>::VALUE);
+        return value(dpScout._maxHostHigh, dpScout._simdLane - LENGTH<SimdVector<int64_t>::Type>::VALUE);
 }
 
 // ----------------------------------------------------------------------------
@@ -460,4 +460,3 @@ _hostLengthV(DPScout_<TDPCell, SimdAlignmentScout<SimdAlignVariableLength<TTrait
 }  // namespace seqan
 
 #endif  // #ifndef SEQAN_INCLUDE_SEQAN_ALIGN_SIMD_DP_SCOUT_SIMD_H_
-

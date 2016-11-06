@@ -41,12 +41,13 @@
 #define SEQAN_SIMD_ENABLED 1
 
 // #define SEQAN_SEQANSIMD_ENABLED 1
-#define SEQAN_UMESIMD_ENABLED 1
+// #define SEQAN_UMESIMD_ENABLED 1
 
 #include "simd/simd_base.h"
 #include "simd/simd_base_seqan_impl.h"
 
 #if SEQAN_SEQANSIMD_ENABLED
+    #pragma message("SEQANSIMD_ENABLE")
     #if defined(SEQAN_SSE4)
     #include "simd/simd_base_seqan_impl_sse4.2.h"
     #endif // defined(SEQAN_SSE4)
@@ -59,6 +60,7 @@
 #endif // SEQAN_SIMD_ENABLED
 
 #if SEQAN_UMESIMD_ENABLED
+    #pragma message("UMESIMD_ENABLE")
     #include "simd/simd_base_umesimd_impl.h"
 #endif
 

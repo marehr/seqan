@@ -51,7 +51,7 @@ if (UMESIMD_CHILD_INCLUDE_DIR AND EXISTS "${UMESIMD_CHILD_INCLUDE_DIR}/UMESimd.h
     get_filename_component(UMESIMD_INCLUDE_DIR ${UMESIMD_CHILD_INCLUDE_DIR} DIRECTORY)
 
     file(STRINGS "${UMESIMD_CHILD_INCLUDE_DIR}/README.md" UMESIMD_H REGEX "stable release is")
-    string(REGEX REPLACE ".*stable release is.*v([0-9]+\\.[^ -]+).*" "\\1" UMESIMD_VERSION_STRING "${UMESIMD_H}")
+    string(REGEX REPLACE ".*stable release is.*v([0-9]+\\.[^ -*]+).*" "\\1" UMESIMD_VERSION_STRING "${UMESIMD_H}")
 endif ()
 
 # set UMESIMD_FOUND to TRUE if all listed variables are TRUE

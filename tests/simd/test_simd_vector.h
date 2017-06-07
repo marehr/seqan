@@ -486,18 +486,30 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, BitwiseAnd)
     using TValue = typename TestFixture::TValue;
     constexpr auto length = TestFixture::LENGTH;
 
-    TSimdVector a{0u}, b{0u};
+    TSimdVector a{0u}, b{0u}, c;
+    a = a - createVector<TSimdVector>(1);
+    b = b - createVector<TSimdVector>(1);
+    c = a & b;
+
+    for (auto i = 0; i < length; ++i)
+    {
+        std::cout << i << " / " << length << ": " << (int)c[i] << " = " << (int)a[i] << " & " << (int)b[i] << std::endl;
+        SEQAN_ASSERT_EQ(c[i], a[i] & b[i]);
+    }
+    // SEQAN_ASSERT(c == createVector<TSimdVector>(0));
+
     fillVectors(a, b);
 
-    auto c = a & b;
+    c = a & b;
 
     for (auto i = 0; i < length; ++i)
     {
         TValue a_i = -3 + i * 3, b_i = length - i;
-        // std::cout << i << " / " << length << ": " << (int)c[i] << " = " << (int)a[i] << " & " << (int)b[i] << std::endl;
+        std::cout << i << " / " << length << ": " << (int)c[i] << " = " << (int)a[i] << " & " << (int)b[i] << std::endl;
         SEQAN_ASSERT_EQ(c[i], a[i] & b[i]);
         SEQAN_ASSERT_EQ(c[i], static_cast<TValue>(a_i & b_i));
     }
+    // SEQAN_ASSERT(c, createVector<TSimdVector>(0));
 }
 
 SEQAN_TYPED_TEST(SimdVectorTestCommon, BitwiseAndAssign)

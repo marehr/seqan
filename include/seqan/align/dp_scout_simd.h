@@ -123,8 +123,17 @@ public:
 
     inline void updateMasks()
     {
-        for(size_t pos = 0; pos < dimV; ++pos)
-            masks[pos] = masksH[posH] & masksV[pos];
+        for(size_t pos = 0; pos < dimV; ++pos){
+            // std::cout << "masks[" << pos << "] before: ";
+            // print(std::cout, masks[pos]);
+            masks[pos] = (std::decay_t<decltype(masks[pos])>)_mm_and_si128((__m128i)masksH[posH], (__m128i)masksV[pos]);
+            std::cout << "masksH[" << posH << "]: ";
+            print(std::cout, masksH[posH]);
+            std::cout << "masksV[" << pos << "]: ";
+            print(std::cout, masksV[pos]);
+            std::cout << "masks[" << pos << "]: ";
+            print(std::cout, masks[pos]);
+        }
         //for local alignments the BOTTOM parameter must be checked first
         if(isLocalAlignment)
         {
@@ -137,6 +146,11 @@ public:
                 updateMasksRight();
             if(bottom)
                 updateMasksBottom();
+        }
+        for(size_t pos = 0; pos < dimV; ++pos)
+        {
+            std::cout << "masks[" << pos << "] complete: ";
+            print(std::cout, masks[pos]);
         }
     }
 };
@@ -158,13 +172,18 @@ public:
     //so we need two vectors of type 32bit to save the host for all alignments
 
     // TODO(rrahn): Abstract into a struct, so we can model different configurations.
-    SimdVector<int32_t>::Type _maxHostLow; //first half of alignments
-    SimdVector<int32_t>::Type _maxHostHigh; //other half
+    SimdVector<int32_t>::Type _maxHostLow{}; //first half of alignments
+    SimdVector<int32_t>::Type _maxHostHigh{}; //other half
     TScoutState * state = nullptr;
     unsigned _simdLane  = 0;
 
     DPScout_(TScoutState & pState) : TBase(), state(&pState)
-    {}
+    {
+        // std::cout << "print(std::cout, dpScout._maxHostLow) ";
+        // print(std::cout, _maxHostLow);
+        // std::cout << "print(std::cout, dpScout._maxHostHigh) ";
+        // print(std::cout, _maxHostHigh);
+    }
 };
 
 // ============================================================================
@@ -251,10 +270,23 @@ _updateHostPositions(DPScout_<TDPCell, TScoutSpec> & dpScout,
     dpScout._maxHostHigh = blend(dpScout._maxHostHigh, positionNavigator,
                                  _mm256_cvtepi16_epi32(_mm256_extractf128_si256(reinterpret_cast<__m256i&>(cmp),1)));
 #elif defined(__SSE3__)
+    std::cout << "print(std::cout, positionNavigator) ";
+    print(std::cout, positionNavigator);
+    std::cout << "1 print(std::cout, dpScout._maxHostLow) ";
+    print(std::cout, dpScout._maxHostLow);
+    std::cout << "1 print(std::cout, dpScout._maxHostHigh) ";
+    print(std::cout, dpScout._maxHostHigh);
+
     dpScout._maxHostLow = blend(dpScout._maxHostLow, positionNavigator,
                                 _mm_unpacklo_epi16(reinterpret_cast<__m128i&>(cmp), reinterpret_cast<__m128i&>(cmp)));
     dpScout._maxHostHigh = blend(dpScout._maxHostHigh, positionNavigator,
                                  _mm_unpackhi_epi16(reinterpret_cast<__m128i&>(cmp), reinterpret_cast<__m128i&>(cmp)));
+    std::cout << "2 print(std::cout, dpScout._maxHostLow) ";
+    print(std::cout, dpScout._maxHostLow);
+    std::cout << "2 print(std::cout, dpScout._maxHostHigh) ";
+    print(std::cout, dpScout._maxHostHigh);
+    std::cout << "2 print(std::cout, cmp) ";
+    print(std::cout, cmp);
 #endif
 }
 
@@ -287,8 +319,18 @@ _scoutBestScore(DPScout_<TDPCell, SimdAlignmentScout<SimdAlignVariableLength<TTr
                 TIsLastRow const & /**/)
 {
     auto cmp = cmpGt(_scoreOfCell(activeCell), _scoreOfCell(dpScout._maxScore));
+    std::cout << "print(std::cout, cmp) before ";
+    print(std::cout, cmp);
+
+    std::cout << "dpScout.state->masks[" << dpScout.state->posV << "] ";
+    print(std::cout, dpScout.state->masks[dpScout.state->posV]);
+
     cmp &= dpScout.state->masks[dpScout.state->posV];
+    std::cout << "print(std::cout, cmp) after ";
+    print(std::cout, cmp);
+
     _copySimdCell(dpScout, activeCell, cmp);
+    std::cout << "Navi Position: " << position(navigator) << "\n";
     _updateHostPositions(dpScout, cmp, createVector<SimdVector<int32_t>::Type>(position(navigator)));
 }
 

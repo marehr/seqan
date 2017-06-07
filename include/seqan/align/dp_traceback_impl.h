@@ -512,8 +512,15 @@ _computeTraceback(TTarget & target,
     // Determine whether or not we place gaps to the left.
     typedef typename IsGapsLeft_<TTracebackSpec>::Type TIsGapsLeft;
 
+    std::cout << "maxHostPos_2: " << maxHostPosition << "\n";
     // Set the navigator to the position where the maximum was found.
+    //
+    std::cout << "horizontal_b: (" << coordinate(matrixNavigator,  +DPMatrixDimension_::HORIZONTAL) << ": " << seqHSize<< ")\n";
+    std::cout << "vertical_b: (" << coordinate(matrixNavigator,  +DPMatrixDimension_::VERTICAL) << ": " << seqVSize<< ")\n";
     _setToPosition(matrixNavigator, maxHostPosition);
+
+    std::cout << "horizontal_a: (" << coordinate(matrixNavigator,  +DPMatrixDimension_::HORIZONTAL) << ": " << seqHSize<< ")\n";
+    std::cout << "vertical_a: (" << coordinate(matrixNavigator,  +DPMatrixDimension_::VERTICAL) << ": " << seqVSize<< ")\n";
 
     SEQAN_ASSERT_LEQ(coordinate(matrixNavigator, +DPMatrixDimension_::HORIZONTAL), seqHSize);
     SEQAN_ASSERT_LEQ(coordinate(matrixNavigator, +DPMatrixDimension_::VERTICAL), seqVSize);

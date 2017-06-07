@@ -245,7 +245,31 @@ _prepareAndRunSimdAlignment(TResult & results,
     state.isLocalAlignment = IsLocalAlignment_<TAlgo>::VALUE;
     state.right = IsFreeEndGap_<TFreeEndGaps, DPLastColumn>::VALUE;
     state.bottom = IsFreeEndGap_<TFreeEndGaps, DPLastRow>::VALUE;
+    
+    auto print_helper = [](auto& vec){  for(auto && elem : vec) {std::cout << elem << ", ";}; std::cout << "\n";};
+    std::cout << "print_helper(lengthsH)\n";
+    print_helper(lengthsH);
+    std::cout << "print_helper(lengthsV)\n";
+    print_helper(lengthsV);
+    std::cout << "print_helper(state.endsH)\n";
+    print_helper(state.endsH);
+    std::cout << "print_helper(state.endsV)\n";
+    print_helper(state.endsV);
+    std::cout << "print_helper(state.sortedEndsH)\n";
+    print_helper(state.sortedEndsH);
+    std::cout << "print_helper(state.sortedEndsV)\n";
+    print_helper(state.sortedEndsV);
 
+    for (unsigned i = 0; i < length(seqH); ++i)
+    {
+        std::cout << "i = " << i << "\n";
+        std::cout << "print_helper(state.masksH[i])\n";
+        print(std::cout, state.masksH[i]);
+        std::cout << "print_helper(state.masksV[i])\n";
+        print(std::cout, state.masksV[i]);
+    }
+
+    
     results = _setUpAndRunAlignment(traces, state, stringSimdH, stringSimdV, scoringScheme, alignConfig, TGapModel());
 }
 

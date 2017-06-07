@@ -1471,13 +1471,19 @@ _finishAlignment(TTraceTarget & traceSegments,
 
     for(TSize i = 0; i < length(traceSegments); ++i)
     {
+        std::cout << "i = " << i << '\n';
         _setSimdLane(dpTraceMatrixNavigator, i);
         _setSimdLane(scout, i);
 
         if (IsSingleTrace_<TTraceFlag>::VALUE)
         {
+             //std::cout << "BEFORE: (" << coordinate(dpTraceMatrixNavigator,  +DPMatrixDimension_::HORIZONTAL) << ", " <<  coordinate(dpTraceMatrixNavigator,  +DPMatrixDimension_::VERTICAL)<< ")\n";
             _correctTraceValue(dpTraceMatrixNavigator, scout);
+            // std::cout << "AFTER: (" << coordinate(dpTraceMatrixNavigator,  +DPMatrixDimension_::HORIZONTAL) << ", " <<  coordinate(dpTraceMatrixNavigator,  +DPMatrixDimension_::VERTICAL)<< ")\n";
         }
+        std::cout << "horizontal: (" << coordinate(dpTraceMatrixNavigator,  +DPMatrixDimension_::HORIZONTAL) << ": " << _hostLengthH(scout, seqH)<< ")\n";
+        std::cout << "vertical: (" << coordinate(dpTraceMatrixNavigator,  +DPMatrixDimension_::VERTICAL) << ": " << _hostLengthV(scout, seqV)<< ")\n";
+        std::cout << "maxHostPos: " << maxHostPosition(scout) << "\n";
         _computeTraceback(traceSegments[i], dpTraceMatrixNavigator, scout, _hostLengthH(scout, seqH),
                           _hostLengthV(scout, seqV), band, dpProfile);
     }

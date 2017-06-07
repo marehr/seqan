@@ -140,7 +140,7 @@ struct TestSequences_<seqan::Dna, VariableLengthSimd>
         appendValue(set, "CCGAAGTTTCGATGGATGGATTCCACACACCTGGTGCCA");
         appendValue(set, "ACGCGCAGGCATAGTTGGAGAA");
         appendValue(set, "TTATTCGGGGGCAGTGACAACACTTAGCGACTAC");
-        
+
         auto set2(set);
         std::sort(seqan::begin(set2, seqan::Standard()), seqan::end(set2, seqan::Standard()),
                   [](auto& strA, auto& strB){ return seqan::isLess(strA, strB); });
@@ -233,7 +233,7 @@ struct TestSequences_<seqan::AminoAcid, VariableLengthSimd>
         appendValue(set, "NMQDVIGGKSLAQHSSVTYAQQEH");
         appendValue(set, "CQTPRWECMQSLNFDEKEAADLMIDVS");
         appendValue(set, "PMMDLDWSMKNMLIECLRPHNRMQDNLMIDVCARH");
-        
+
         auto set2(set);
         std::sort(seqan::begin(set2, seqan::Standard()), seqan::end(set2, seqan::Standard()),
                   [](auto& strA, auto& strB){ return seqan::isLess(strA, strB); });
@@ -325,19 +325,20 @@ class SimdAlignTestCommon : public SimdAlignTest<T>
 {};
 
 typedef
-        seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>
-        > > > > > > > > > > > > SimdAlignTestCommonCommonTypes;
+        // seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
+         seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::VariableLengthSimd,  seqan::BandOff> //,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOff>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::VariableLengthSimd,  seqan::BandOff>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<>,                         impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<true, true, true, true>,   impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<true, false, false, true>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>,
+        // seqan::TagList<std::tuple<seqan::AlignConfig<false, true, true, false>, impl::test_align_simd::EqualLengthSimd,     seqan::BandOn>
+        // > > > > > > > > > > > >
+        > SimdAlignTestCommonCommonTypes;
 
 SEQAN_TYPED_TEST_CASE(SimdAlignTestCommon, SimdAlignTestCommonCommonTypes);
 
@@ -345,17 +346,17 @@ SEQAN_TYPED_TEST_CASE(SimdAlignTestCommon, SimdAlignTestCommonCommonTypes);
 // Configuration of typed tests for local alignment.
 // ----------------------------------------------------------------------------
 
-template <typename T>
-class SimdAlignLocalTestCommon : public SimdAlignTest<T>
-{};
+// template <typename T>
+// class SimdAlignLocalTestCommon : public SimdAlignTest<T>
+// {};
+//
+// typedef
+//         seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::EqualLengthSimd,    seqan::BandOff>,
+//         seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::VariableLengthSimd, seqan::BandOff>,
+//         seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::EqualLengthSimd,    seqan::BandOn>
+//         > > > SimdAlignLocalTestCommonCommonTypes;
 
-typedef
-        seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::EqualLengthSimd,    seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::VariableLengthSimd, seqan::BandOff>,
-        seqan::TagList<std::tuple<seqan::AlignConfig<>, impl::test_align_simd::EqualLengthSimd,    seqan::BandOn>
-        > > > SimdAlignLocalTestCommonCommonTypes;
-
-SEQAN_TYPED_TEST_CASE(SimdAlignLocalTestCommon, SimdAlignLocalTestCommonCommonTypes);
+// SEQAN_TYPED_TEST_CASE(SimdAlignLocalTestCommon, SimdAlignLocalTestCommonCommonTypes);
 
 // ----------------------------------------------------------------------------
 // Function testAlignSimd()
@@ -494,66 +495,66 @@ SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Align)
 
 SEQAN_TYPED_TEST(SimdAlignTestCommon, Linear_Score)
 {
-    using TAlignConf = typename TestFixture::TAlignConfig;
-    using TLengthParam = typename TestFixture::TLengthParam;
-    using TBandSwitch = typename TestFixture::TBandSwitch;
-
-    testAlignSimdScore<seqan::Dna>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Score<int>(2, -1, -1),
-                                   TAlignConf(), TLengthParam(), TBandSwitch());
-    testAlignSimdScore<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Blosum62(-2),
-                                         TAlignConf(), TLengthParam(), TBandSwitch());
+    // using TAlignConf = typename TestFixture::TAlignConfig;
+    // using TLengthParam = typename TestFixture::TLengthParam;
+    // using TBandSwitch = typename TestFixture::TBandSwitch;
+    //
+    // testAlignSimdScore<seqan::Dna>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Score<int>(2, -1, -1),
+    //                                TAlignConf(), TLengthParam(), TBandSwitch());
+    // testAlignSimdScore<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Blosum62(-2),
+    //                                      TAlignConf(), TLengthParam(), TBandSwitch());
 }
 
 SEQAN_TYPED_TEST(SimdAlignTestCommon, Affine_Align)
 {
-    using TAlignConf = typename TestFixture::TAlignConfig;
-    using TLengthParam = typename TestFixture::TLengthParam;
-    using TBandSwitch = typename TestFixture::TBandSwitch;
-
-    testAlignSimd<seqan::Dna>(impl::test_align_simd::GlobalAlignTester_(), seqan::Score<int>(2, -1, -1, -3),
-                              TAlignConf(), TLengthParam(), TBandSwitch());
-    testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignTester_(), seqan::Blosum62(-2, -4),
-                                    TAlignConf(), TLengthParam(), TBandSwitch());
+    // using TAlignConf = typename TestFixture::TAlignConfig;
+    // using TLengthParam = typename TestFixture::TLengthParam;
+    // using TBandSwitch = typename TestFixture::TBandSwitch;
+    //
+    // testAlignSimd<seqan::Dna>(impl::test_align_simd::GlobalAlignTester_(), seqan::Score<int>(2, -1, -1, -3),
+    //                           TAlignConf(), TLengthParam(), TBandSwitch());
+    // testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignTester_(), seqan::Blosum62(-2, -4),
+    //                                 TAlignConf(), TLengthParam(), TBandSwitch());
 }
 
 SEQAN_TYPED_TEST(SimdAlignTestCommon, Affine_Score)
 {
-    using TAlignConf = typename TestFixture::TAlignConfig;
-    using TLengthParam = typename TestFixture::TLengthParam;
-    using TBandSwitch = typename TestFixture::TBandSwitch;
-
-    testAlignSimdScore<seqan::Dna>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Score<int>(2, -1, -1, -3),
-                                   TAlignConf(), TLengthParam(), TBandSwitch());
-    testAlignSimdScore<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Blosum62(-2, -4),
-                                         TAlignConf(), TLengthParam(), TBandSwitch());
+    // using TAlignConf = typename TestFixture::TAlignConfig;
+    // using TLengthParam = typename TestFixture::TLengthParam;
+    // using TBandSwitch = typename TestFixture::TBandSwitch;
+    //
+    // testAlignSimdScore<seqan::Dna>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Score<int>(2, -1, -1, -3),
+    //                                TAlignConf(), TLengthParam(), TBandSwitch());
+    // testAlignSimdScore<seqan::AminoAcid>(impl::test_align_simd::GlobalAlignScoreTester_(), seqan::Blosum62(-2, -4),
+    //                                      TAlignConf(), TLengthParam(), TBandSwitch());
 }
 
 // ----------------------------------------------------------------------------
 // Local Alignments.
 // ----------------------------------------------------------------------------
 
-SEQAN_TYPED_TEST(SimdAlignLocalTestCommon, Linear_Align)
-{
-    using TAlignConf = typename TestFixture::TAlignConfig;
-    using TLengthParam = typename TestFixture::TLengthParam;
-    using TBandSwitch = typename TestFixture::TBandSwitch;
-
-    testAlignSimd<seqan::Dna>(impl::test_align_simd::LocalAlignTester_(), seqan::Score<int>(2, -1, -1),
-                              TAlignConf(), TLengthParam(), TBandSwitch());
-    testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::LocalAlignTester_(), seqan::Blosum62(-2),
-                                    TAlignConf(), TLengthParam(), TBandSwitch());
-}
-
-SEQAN_TYPED_TEST(SimdAlignLocalTestCommon, Affine_Align)
-{
-    using TAlignConf = typename TestFixture::TAlignConfig;
-    using TLengthParam = typename TestFixture::TLengthParam;
-    using TBandSwitch = typename TestFixture::TBandSwitch;
-
-    testAlignSimd<seqan::Dna>(impl::test_align_simd::LocalAlignTester_(), seqan::Score<int>(2, -1, -1, -3),
-                              TAlignConf(), TLengthParam(), TBandSwitch());
-    testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::LocalAlignTester_(), seqan::Blosum62(-2, -4),
-                                    TAlignConf(), TLengthParam(), TBandSwitch());
-}
+// SEQAN_TYPED_TEST(SimdAlignLocalTestCommon, Linear_Align)
+// {
+//     // using TAlignConf = typename TestFixture::TAlignConfig;
+//     // using TLengthParam = typename TestFixture::TLengthParam;
+//     // using TBandSwitch = typename TestFixture::TBandSwitch;
+//     //
+//     // testAlignSimd<seqan::Dna>(impl::test_align_simd::LocalAlignTester_(), seqan::Score<int>(2, -1, -1),
+//     //                           TAlignConf(), TLengthParam(), TBandSwitch());
+//     // testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::LocalAlignTester_(), seqan::Blosum62(-2),
+//     //                                 TAlignConf(), TLengthParam(), TBandSwitch());
+// }
+//
+// SEQAN_TYPED_TEST(SimdAlignLocalTestCommon, Affine_Align)
+// {
+//     // using TAlignConf = typename TestFixture::TAlignConfig;
+//     // using TLengthParam = typename TestFixture::TLengthParam;
+//     // using TBandSwitch = typename TestFixture::TBandSwitch;
+//     //
+//     // testAlignSimd<seqan::Dna>(impl::test_align_simd::LocalAlignTester_(), seqan::Score<int>(2, -1, -1, -3),
+//     //                           TAlignConf(), TLengthParam(), TBandSwitch());
+//     // testAlignSimd<seqan::AminoAcid>(impl::test_align_simd::LocalAlignTester_(), seqan::Blosum62(-2, -4),
+//     //                                 TAlignConf(), TLengthParam(), TBandSwitch());
+// }
 
 #endif  // #ifndef TESTS_ALIGN_TEST_ALIGN_SIMD_H_

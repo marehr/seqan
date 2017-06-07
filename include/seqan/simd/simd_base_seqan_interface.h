@@ -377,10 +377,10 @@ template <typename TSimdVector>
 inline SEQAN_FUNC_ENABLE_IF(Is<SimdVectorConcept<TSimdVector> >, std::ostream &)
 print(std::ostream & stream, TSimdVector const & vector)
 {
-    stream << '<';
+    stream << '(';
     for (int i = 0; i < LENGTH<TSimdVector>::VALUE; ++i)
-    stream << '\t' << vector[i];
-    stream << "\t>\n";
+    stream << "" << vector[i] << ", ";
+    stream << ")\n";
     return stream;
 }
 

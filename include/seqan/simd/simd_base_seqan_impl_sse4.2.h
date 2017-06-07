@@ -339,6 +339,7 @@ inline TSimdVector _bitwiseOr(TSimdVector & a, TSimdVector & b, SimdParams_<16, 
 template <typename TSimdVector, int L>
 inline TSimdVector _bitwiseAnd(TSimdVector & a, TSimdVector & b, SimdParams_<16, L>)
 {
+    throw 42;
     return SEQAN_VECTOR_CAST_(TSimdVector,
                               _mm_and_si128(SEQAN_VECTOR_CAST_(const __m128i&, a),
                                             SEQAN_VECTOR_CAST_(const __m128i&, b)));

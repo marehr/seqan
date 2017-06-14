@@ -107,10 +107,10 @@ using SimdVector8UInt64  = UME::SIMD::SIMDVec<uint64_t, 8>;
 // ============================================================================
 
 template <uint32_t LENGTH>
-SEQAN_CONCEPT_IMPL((typename UME::SIMD::SIMDVecMask<LENGTH>),       (SimdVectorConcept));
+SEQAN_CONCEPT_IMPL((typename UME::SIMD::SIMDVecMask<LENGTH>),       (SimdMaskVectorConcept));
 
 template <uint32_t LENGTH>
-SEQAN_CONCEPT_IMPL((typename UME::SIMD::SIMDVecMask<LENGTH> const), (SimdVectorConcept));
+SEQAN_CONCEPT_IMPL((typename UME::SIMD::SIMDVecMask<LENGTH> const), (SimdMaskVectorConcept));
 
 template <uint32_t LENGTH>
 struct Value<UME::SIMD::SIMDVecMask<LENGTH> >
@@ -348,6 +348,17 @@ clearVector(TSimdVector & vector)
     vector = 0;
 }
 
+// --------------------------------------------------------------------------
+// Function createVector()
+// --------------------------------------------------------------------------
+
+template <typename TSimdVector, typename TValue>
+inline SEQAN_FUNC_ENABLE_IF(And<Is<SimdMaskVectorConcept<TSimdVector>>,
+                                Not<Is<SimdVectorConcept<TSimdVector>>>>, TSimdVector)
+createVector(TValue const x)
+{
+    return TSimdVector(static_cast<bool>(x));
+}
 
 // --------------------------------------------------------------------------
 // Function createVector()

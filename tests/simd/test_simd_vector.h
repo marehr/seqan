@@ -375,7 +375,7 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, CmpEqual)
     constexpr auto length = TestFixture::LENGTH;
 
     TBoolValue false_ = 0,
-               true_ = trueValue<TSimdVector>();
+               true_ = trueValue<TSimdMaskVector>();
 
     TSimdVector a{0u}, b{0u};
     fillVectors(a, b);
@@ -406,7 +406,7 @@ SEQAN_TYPED_TEST(SimdVectorTestCommon, CmpGt)
     constexpr auto length = TestFixture::LENGTH;
 
     TBoolValue false_ = 0,
-               true_ = trueValue<TSimdVector>();
+               true_ = trueValue<TSimdMaskVector>();
 
     TSimdVector a{0u}, b{0u};
     fillVectors(a, b);

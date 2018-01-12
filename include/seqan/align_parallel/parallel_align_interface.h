@@ -110,7 +110,11 @@ struct ParallelAlignmentExecutor
     {
         SEQAN_ASSERT_EQ(length(setH), length(setV));
 
+#if !defined(COMPILER_MSVC)
         using TPos = decltype(length(setH));
+#else
+        using TPos = int;
+#endif
         using TResult = decltype(kernel(setH, setV, std::forward<TArgs>(args)...));
 
         TPos chunkSize = _min(length(setH), static_cast<TPos>(256));
@@ -157,7 +161,11 @@ struct ParallelAlignmentExecutor
     {
         SEQAN_ASSERT_EQ(length(setH), length(setV));
 
+#if !defined(COMPILER_MSVC)
         using TPos = decltype(length(setH));
+#else
+        using TPos = int;
+#endif
         using TResult = decltype(kernel(setH, setV, std::forward<TArgs>(args)...));
 
         Splitter<TPos> splitter(0, length(setH), numThreads(execPolicy));
